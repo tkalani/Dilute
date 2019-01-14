@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load staticfiles %}
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'users/css/login_page.css' %}">
+    <style> @import url(http://fonts.googleapis.com/css?family=Roboto); </style>
+  </head>
+
+<body>
+  <center>
+    <div class="login-page center" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="form">
+        <img src="{% static 'users/img/logo.png' %}" alt="" height="150px" width="150px" />
+            <form name="myform" method="post" action="" enctype="multipart/form-data" class="login-form" role="form">
+            {% csrf_token %}
+            <input type="text" name="mob_no" placeholder="mobile number"> 
+            <input type="password" name="password" placeholder="Password"> 
+            <!--<input type="submit" name="login" class="login loginmodal-submit" value="Login"> -->
+            <button type="submit" name="login" class="login loginmodal-submit">Login</button><br><br>
+          </form>
+        <p class="message"><a href="{% url 'users:signup' %}">Sign Up</a></p>
+        <p class="message"><a href="#">Forgot Password?</a></p>          
+      </div>
+    </div>
+  </center>
+</body>
+</html>

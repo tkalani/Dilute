@@ -1,0 +1,39 @@
+table.table1 {
+					border-bottom-style: solid;
+					border-bottom-width: 2px;
+					border-top-style: solid;
+					border-top-width: 2px;
+				}
+				.highlighted {
+					background-color: #D3D3D3;
+				}
+				a:link {
+					text-decoration: none;
+				}
+				.table1 {
+					width: 80%;
+				}
+				.table1 tr th {
+					text-align: left;
+				}
+				.table_data1 {
+					text-align: right;
+				}
+				.table_data2 {
+					text-align: left;
+					padding-left: 3%;
+				}
+				.table_data3 {
+					text-align: left;
+					padding-left: 1%;
+				}
+				.table2 {
+					width : 100%;
+				}
+				h5 {
+					margin-top: 3%;
+					font-weight: bold;
+				}
+				.settings-block, .success-message{
+					display: none;
+				}

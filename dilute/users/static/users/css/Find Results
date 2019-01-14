@@ -1,0 +1,275 @@
+Searching 329 files for "actuatorstatus"
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/db.sqlite3:
+    <binary>
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/dilute/static/users/css/overview.css:
+   16      transition: background-image 2s;
+   17  }
+   18: #actuatorstatus {
+   19      background-image: url('../img/runningtap.svg');
+   20      background-size: contain;
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/models.py:
+   44  	actuator_link = models.CharField(max_length=200, blank=True)
+   45  
+   46: 	drinkingWaterActuatorStatus = models.BooleanField(default = False)
+   47: 	carWaterActuatorStatus = models.BooleanField(default = False)
+   48: 	bathingWaterActuatorStatus = models.BooleanField(default = False)
+   49: 	plantWaterActuatorStatus = models.BooleanField(default = False)
+   50  
+   51  	def __str__(self):
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/views.py:
+   26  
+   27  		if d == 1 and flag == True:
+   28: 			userprofile.drinkingWaterActuatorStatus = True
+   29  		elif flag == True:
+   30: 			userprofile.drinkingWaterActuatorStatus = False
+   31  		l[0] = str(flag)
+   32  
+   ..
+   39  			flag = False
+   40  		if c == 1 and flag == True:
+   41: 			userprofile.carWaterActuatorStatus = True
+   42  		elif flag == True:
+   43: 			userprofile.carWaterActuatorStatus = False
+   44  		l[1] = str(flag)
+   45  
+   ..
+   52  			flag = False
+   53  		if b == 1 and flag == True:
+   54: 			userprofile.bathingWaterActuatorStatus = True
+   55  		elif flag == True:
+   56: 			userprofile.bathingWaterActuatorStatus = False
+   57  		l[2] = str(flag)
+   58  
+   ..
+   65  			flag = False
+   66  		if p == 1 and flag == True:
+   67: 			userprofile.plantWaterActuatorStatus = True
+   68  		elif flag == True:
+   69: 			userprofile.plantWaterActuatorStatus = False
+   70  		l[3] = str(flag)
+   71  
+   ..
+  293  		'actuator_control': user_profile.actuator_control,
+  294  		'actuator_link': user_profile.actuator_link,
+  295: 		'drinkingWaterActuatorStatus': user_profile.drinkingWaterActuatorStatus,
+  296: 		'carWaterActuatorStatus': user_profile.carWaterActuatorStatus,
+  297: 		'bathingWaterActuatorStatus': user_profile.bathingWaterActuatorStatus,
+  298: 		'plantWaterActuatorStatus': user_profile.plantWaterActuatorStatus
+  299  	}
+  300  	res = JsonResponse(context)
+  ...
+  532  		print res
+  533  		if value == 12 and action == 1:
+  534: 			user_profile.drinkingWaterActuatorStatus = True
+  535  		elif value == 12 and action == 0:
+  536: 			user_profile.drinkingWaterActuatorStatus = False
+  537  		if value == 16 and action == 1:
+  538: 			user_profile.carWaterActuatorStatus = True
+  539  		elif value == 16 and action == 0:
+  540: 			user_profile.carWaterActuatorStatus = False
+  541  		if value == 20 and action == 1:
+  542: 			user_profile.bathingWaterActuatorStatus = True
+  543  		elif value == 20 and action == 0:
+  544: 			user_profile.bathingWaterActuatorStatus = False
+  545  		if value == 26 and action == 1:
+  546: 			user_profile.plantWaterActuatorStatus = True
+  547  		elif value == 26 and action == 0:
+  548: 			user_profile.plantWaterActuatorStatus = False
+  549  		user_profile.save()
+  550  		context = { 'success' : 1 }
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/migrations/0020_auto_20180503_1352.py:
+   15          migrations.AddField(
+   16              model_name='userprofile',
+   17:             name='bathingWaterActuatorStatus',
+   18              field=models.BooleanField(default=False),
+   19          ),
+   20          migrations.AddField(
+   21              model_name='userprofile',
+   22:             name='carWaterActuatorStatus',
+   23              field=models.BooleanField(default=False),
+   24          ),
+   25          migrations.AddField(
+   26              model_name='userprofile',
+   27:             name='drinkingWaterActuatorStatus',
+   28              field=models.BooleanField(default=False),
+   29          ),
+   30          migrations.AddField(
+   31              model_name='userprofile',
+   32:             name='plantWaterActuatorStatus',
+   33              field=models.BooleanField(default=False),
+   34          ),
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/static/users/css/overview.css:
+   16      transition: background-image 2s;
+   17  }
+   18: #actuatorstatus {
+   19      background-image: url('../img/runningtap.svg');
+   20      background-size: contain;
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/static/users/js/overview.js:
+  127  	document.getElementById('current_type_of_water').innerHTML = type_of_water_data;
+  128  
+  129: 	if(data.drinkingWaterActuatorStatus == true)
+  130  		document.getElementById(12).checked = true;
+  131  	else
+  132  		document.getElementById(12).checked = false;
+  133: 	if(data.carWaterActuatorStatus == true)
+  134  		document.getElementById(16).checked = true;
+  135  	else
+  136  		document.getElementById(16).checked = false;
+  137: 	if(data.bathingWaterActuatorStatus == true)
+  138  		document.getElementById(20).checked = true;
+  139  	else
+  140  		document.getElementById(20).checked = false;
+  141: 	if(data.plantWaterActuatorStatus == true)
+  142  		document.getElementById(21).checked = true;
+  143  	else
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/templates/users/home.html:
+   97  
+   98  		<div id="block1" style="opacity: 1; position: absolute; width: 24%;">
+   99: 			<div id="actuatorstatus">
+  100  				<img src="{% static 'users/img/runningtap.svg' %}" style="margin-top: 10px; height: 100px;">
+  101  			</div>
+
+50 matches across 8 files
+
+
+Searching 163 files for "actuatorstatus"
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/db.sqlite3:
+    <binary>
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/models.py:
+   44  	actuator_link = models.CharField(max_length=200, blank=True)
+   45  
+   46: 	drinkingWaterActuatorStatus = models.BooleanField(default = False)
+   47: 	carWaterActuatorStatus = models.BooleanField(default = False)
+   48: 	bathingWaterActuatorStatus = models.BooleanField(default = False)
+   49: 	plantWaterActuatorStatus = models.BooleanField(default = False)
+   50  
+   51  	def __str__(self):
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/views.py:
+   26  
+   27  		if d == 1 and flag == True:
+   28: 			userprofile.drinkingWaterActuatorStatus = True
+   29  		elif flag == True:
+   30: 			userprofile.drinkingWaterActuatorStatus = False
+   31  		l[0] = str(flag)
+   32  
+   ..
+   39  			flag = False
+   40  		if c == 1 and flag == True:
+   41: 			userprofile.carWaterActuatorStatus = True
+   42  		elif flag == True:
+   43: 			userprofile.carWaterActuatorStatus = False
+   44  		l[1] = str(flag)
+   45  
+   ..
+   52  			flag = False
+   53  		if b == 1 and flag == True:
+   54: 			userprofile.bathingWaterActuatorStatus = True
+   55  		elif flag == True:
+   56: 			userprofile.bathingWaterActuatorStatus = False
+   57  		l[2] = str(flag)
+   58  
+   ..
+   65  			flag = False
+   66  		if p == 1 and flag == True:
+   67: 			userprofile.plantWaterActuatorStatus = True
+   68  		elif flag == True:
+   69: 			userprofile.plantWaterActuatorStatus = False
+   70  		l[3] = str(flag)
+   71  
+   ..
+  293  		'actuator_control': user_profile.actuator_control,
+  294  		'actuator_link': user_profile.actuator_link,
+  295: 		'drinkingWaterActuatorStatus': user_profile.drinkingWaterActuatorStatus,
+  296: 		'carWaterActuatorStatus': user_profile.carWaterActuatorStatus,
+  297: 		'bathingWaterActuatorStatus': user_profile.bathingWaterActuatorStatus,
+  298: 		'plantWaterActuatorStatus': user_profile.plantWaterActuatorStatus
+  299  	}
+  300  	res = JsonResponse(context)
+  ...
+  532  		print res
+  533  		if value == 12 and action == 1:
+  534: 			user_profile.drinkingWaterActuatorStatus = True
+  535  		elif value == 12 and action == 0:
+  536: 			user_profile.drinkingWaterActuatorStatus = False
+  537  		if value == 16 and action == 1:
+  538: 			user_profile.carWaterActuatorStatus = True
+  539  		elif value == 16 and action == 0:
+  540: 			user_profile.carWaterActuatorStatus = False
+  541  		if value == 20 and action == 1:
+  542: 			user_profile.bathingWaterActuatorStatus = True
+  543  		elif value == 20 and action == 0:
+  544: 			user_profile.bathingWaterActuatorStatus = False
+  545  		if value == 26 and action == 1:
+  546: 			user_profile.plantWaterActuatorStatus = True
+  547  		elif value == 26 and action == 0:
+  548: 			user_profile.plantWaterActuatorStatus = False
+  549  		user_profile.save()
+  550  		context = { 'success' : 1 }
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/migrations/0020_auto_20180503_1352.py:
+   15          migrations.AddField(
+   16              model_name='userprofile',
+   17:             name='bathingWaterActuatorStatus',
+   18              field=models.BooleanField(default=False),
+   19          ),
+   20          migrations.AddField(
+   21              model_name='userprofile',
+   22:             name='carWaterActuatorStatus',
+   23              field=models.BooleanField(default=False),
+   24          ),
+   25          migrations.AddField(
+   26              model_name='userprofile',
+   27:             name='drinkingWaterActuatorStatus',
+   28              field=models.BooleanField(default=False),
+   29          ),
+   30          migrations.AddField(
+   31              model_name='userprofile',
+   32:             name='plantWaterActuatorStatus',
+   33              field=models.BooleanField(default=False),
+   34          ),
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/static/users/css/overview.css:
+   16      transition: background-image 2s;
+   17  }
+   18: #actuatorstatus {
+   19      background-image: url('../img/runningtap.svg');
+   20      background-size: contain;
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/static/users/js/overview.js:
+  127  	document.getElementById('current_type_of_water').innerHTML = type_of_water_data;
+  128  
+  129: 	if(data.drinkingWaterActuatorStatus == true)
+  130  		document.getElementById(12).checked = true;
+  131  	else
+  132  		document.getElementById(12).checked = false;
+  133: 	if(data.carWaterActuatorStatus == true)
+  134  		document.getElementById(16).checked = true;
+  135  	else
+  136  		document.getElementById(16).checked = false;
+  137: 	if(data.bathingWaterActuatorStatus == true)
+  138  		document.getElementById(20).checked = true;
+  139  	else
+  140  		document.getElementById(20).checked = false;
+  141: 	if(data.plantWaterActuatorStatus == true)
+  142  		document.getElementById(21).checked = true;
+  143  	else
+
+/Users/siddhantkushwaha/Documents/GitHub/dilute/dilute/users/templates/users/home.html:
+   97  
+   98  		<div id="block1" style="opacity: 1; position: absolute; width: 24%;">
+   99: 			<div id="actuatorstatus">
+  100  				<img src="{% static 'users/img/runningtap.svg' %}" style="margin-top: 10px; height: 100px;">
+  101  			</div>
+
+49 matches across 7 files

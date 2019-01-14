@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Dilute - Home Page</title>
+
+  <!-- CSS  -->
+  <link rel="icon" href="{% static 'users/img/homepage/logo.png' %}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--   <link href="{% static 'users/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+  <!-- <link href="{% static 'users/css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+  <style>
+    #index-banner{
+    	background: url("{% static 'users/img/homepage/cover.jpg' %}");
+      background-size: cover;
+    }
+  </style>
+
+  <script>
+    function showCityData(cityID){
+      console.log(cityID);
+      window.location.href = '../users/city/'+cityID;
+    }
+  </script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-wrapper orange">
+      <div class="row">
+      <div class="col s6 m3" style="padding-left: 40px">
+      <div class="dropdown">
+    <a class="dropdown-toggle" href="#" data-toggle="dropdown">City
+    <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="#" onClick="showCityData(0)">Jaipur</a></li>
+      <li><a href="#" onClick="showCityData(1)">Chennai</a></li>
+      <li><a href="#" onClick="showCityData(2)">Delhi</a></li>
+      <li><a href="#" onClick="showCityData(3)">Mumbai</a></li>
+      <li><a href="#" onClick="showCityData(4)">Kolkata</a></li>
+      <li><a href="#" onClick="showCityData(5)">Hyderabad</a></li>
+      <li><a href="#" onClick="showCityData(6)">Banglore</a></li>
+      <li><a href="#" onClick="showCityData(7)">Pune</a></li>
+    </ul>
+  </div>
+    </div>
+      <div style="padding-right: 20px">
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+        </li>
+        <li><a href="{% url 'users:login' %}">LOGIN</a></li>
+        <li><a href="{% url 'users:signup' %}">SIGNUP</a></li>
+        
+      </ul></div></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <div class="center">
+      <img  style="height:15em;" src="{% static 'users/img/homepage/logo.png' %}">
+    </div>
+    <h1 class="header center orange-text">Dilute</h1>
+    <div class="row center">
+        <h3 class="header col s12 light">Dilute your water worries with <strong>Dilute</strong>.</h3>
+    </div>
+      <br>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="section">
+
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+            <h5 class="center">Easy to Use</h5>
+            <p class="light"><center>
+              Just switch Automatic or Manual control.</center>
+            </p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center">Understand your Usage</h5>
+
+            <p class="light"  style="text-align:justify;"><center>
+                The Earth might seem like it has abundant water, 
+                but in fact less than 1 percent is available for human use. 
+                Consume Water judiciously.</center>
+            </p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">airplay</i></h2>
+            <h5 class="center">Cross Platform Support</h5>
+            <p class="light">
+              <center>
+              Website and App helps you manage your Water Storage from anywhere and everywhere.
+              Access control using any device.</center>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l12 s12">
+          <!-- <h5 class="white-text">About Us</h5>
+          <p class="grey-text text-lighten-4">Body</p> -->
+
+        </div>
+
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made with <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> -->
+  <!-- <script src="{% static 'users/js/materialize.js' %}"></script> -->
+  <!-- <script src="{% static 'users/js/init.js' %}"></script> -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
+<script>
+
+    $(".dropdown-trigger").dropdown();
+  </script>
+  </body>
+</html>

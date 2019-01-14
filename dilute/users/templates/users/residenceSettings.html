@@ -1,0 +1,555 @@
+{% extends 'users/main.html' %}
+	{% block head %}
+		{% load staticfiles %}
+			<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js" ></script>
+			<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+			<link rel="stylesheet" href="{% static 'users/css/residence_Settings.css' %}">
+	{% endblock %}
+	{% block body %}
+		{% block main %}
+			{% block mydashboard %}
+			{% endblock %}
+			<center>
+				<div class="w3-row-padding" style="">
+					<h5>Residence Settings</h5>
+					<table class="table1">
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_residence_details();">Residence Details</a>
+								<div id="UpdateResidenceDetailsForm" class="settings-block">
+									<center>
+										<table class="table2"+>
+											<tr>
+												<td width="50%" class="table_data1">Address</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="address" required>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">City</td>
+												<td width="50%" class="table_data2">
+													<select name="city_dropdown" id="city_dropdown">
+														<option value="0">Jaipur</option>
+														<option value="1" selected>Chennai</option>
+														<option value="2">Delhi</option>
+														<option value="3">Mumbai</option>
+														<option value="4">Kolkata</option>
+														<option value="5">Hyderabad</option>
+														<option value="6">Banglore</option>
+														<option value="7">Pune</option>
+														</option>
+													</select>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">Pincode</td>
+												<td width="50%" class="table_data2">
+													<input type="number" id="pincode" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_residence_details()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedResidenceDetails" class="success-message">
+														<font color="green" size="1px;">Residence Details Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_vehicles();">Vehicles</a>
+								<div id="UpdateVehicleForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">No. of Vehicles</td>
+												<td width="50%" class="table_data2">
+													<input type="number" id="vehicle_num" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_num_of_vehicles()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedVehicles" class="success-message">
+														<font color="green" size="1px;">No. of Vehicles Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_members();">Members</a>
+								<div id="UpdateMembersForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">No. of Members</td>
+												<td width="50%" class="table_data2">
+													<input type="number" id="member_num" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_members()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedMembers" class="success-message">
+														<font color="green" size="1px;">No. of Members Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_plants();">Plants</a>
+								<div id="UpdatePlantsForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">No. of Plants</td>
+												<td width="50%" class="table_data2">
+													<input type="number" id="plant_num" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_plants()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedPlants" class="success-message">
+														<font color="green" size="1px;">No. of Plants Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_reservoir_settings();">Reservoir Settings</a>
+								<div id="UpdateReservoirDetailsForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">Main Tank Level (cms)</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="mt_level" required>
+												</td>
+											</tr><br>
+											<tr>
+												<td width="50%" class="table_data1">Drinking Water Tank Level (cms)</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="dwt_level" required>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">Bathing Water Tank Level (cms)</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="bwt_level" required>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">Car Wash Tank Level (cms)</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="cwt_level" required>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%" class="table_data1">Plant Water Tank Level (cms)</td>
+												<td width="50%" class="table_data2">
+													<input type="text" id="pwt_level" required>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_reservoir_settings()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedReservoirDetails" class="success-message">
+														<font color="green" size="1px;">Reservoir Details Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_actuator_control_settings();">Actuator Control Settings</a>
+								<div id="UpdateActuatorSettingsForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">
+													<input type="radio" name="actuator_control" id="automatic" onchange="update_actuator_control_settings(0)">Automatic
+												</td>
+												<td width="50%" class="table_data2">
+													<input type="radio" name="actuator_control" id="manual" onchange="update_actuator_control_settings(1)">Manual
+												</td>
+											</tr>
+											<tr>
+												<p id="successfullyUpdatedActatorControlSettings" class="success-message">
+														<font color="green" size="1px;">Actator Control Settings Updated Successfully</font>
+													</p>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+						<tr class="blocks">
+							<th>
+								<a href="#" onclick="show_actuator_link_settings();">Actuator Link Settings</a>
+								<div id="UpdateActuatorLinkSettingsForm" class="settings-block">
+									<center>
+										<table class="table2">
+											<tr>
+												<td width="50%" class="table_data1">Actuator Link</td>
+												<td width="50%" class="table_data2">
+													<input type="test" id="actuator_link" required style="width: 80%;">
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" class="table_data2">
+													<center>
+													<br>
+													<button class="w3-button w3-blue w3-border" onclick="update_actuator_link()">Change</button>
+													<button class="w3-button w3-border" onclick="cancel();">Cancel</button>
+													
+													<p id="successfullyUpdatedActuatorLinkSettings" class="success-message">
+														<font color="green" size="1px;">Actuator Link Updated Successfully</font>
+													</p>
+													<br>
+													</center>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</div>
+							</th>
+						</tr>
+					</table>
+				</div>
+			</center>
+		{% endblock %}
+	{% endblock %} 
+	{% block script %}
+		<script>
+			function cancel()
+			{
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_residence_details()
+			{
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').show();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_vehicles()
+			{
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').show();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_members()
+			{
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').show();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_plants()
+			{
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').show();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_reservoir_settings()
+			{
+				$('#UpdateReservoirDetailsForm').show();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_actuator_control_settings()
+			{
+				$('#UpdateActuatorSettingsForm').show();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+				$('#UpdateActuatorLinkSettingsForm').hide();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+			}
+
+			function show_actuator_link_settings()
+			{
+				$('#UpdateActuatorLinkSettingsForm').show();	$('#successfullyUpdatedActuatorLinkSettings').hide();
+				$('#UpdateActuatorSettingsForm').hide();		$('#successfullyUpdatedActatorControlSettings').hide();
+				$('#UpdateReservoirDetailsForm').hide();		$('#successfullyUpdatedReservoirDetails').hide();
+				$('#UpdateResidenceDetailsForm').hide();		$('#successfullyUpdatedResidenceDetails').hide();
+				$('#UpdateVehicleForm').hide();					$('#successfullyUpdatedVehicles').hide();
+				$('#UpdateMembersForm').hide();					$('#successfullyUpdatedMembers').hide();
+				$('#UpdatePlantsForm').hide();					$('#successfullyUpdatedPlants').hide();
+			}
+
+			function update_residence_details()
+			{
+				var address = $('#address').val();
+				var city = $('#city_dropdown').val();
+				var pincode = $('#pincode').val();
+				$.ajax({
+					url: "{% url 'users:UpdateResidenceDetails' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'address': address, 'city': city, 'pincode': pincode, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedResidenceDetails').show();
+							$('#address').attr('value', address);
+							$('#city_dropdown').attr('value', city);
+							$('#pincode').attr('value',pincode);
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_num_of_vehicles()
+			{
+				var num_of_vehicle = $('#vehicle_num').val();
+				$.ajax({
+					url: "{% url 'users:updateVehicles' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'vehicleNum': num_of_vehicle, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedVehicles').show();
+							$('#vehicle_num').attr('value', num_of_vehicle);
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_members()
+			{
+				var num_of_members = $('#member_num').val();
+				$.ajax({
+					url: "{% url 'users:updateMembers' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'memberNum': num_of_members, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedMembers').show();
+							$('#member_num').attr('value', num_of_members);
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_plants()
+			{
+				var num_of_plants = $('#plant_num').val();
+				$.ajax({
+					url: "{% url 'users:updatePlants' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'plantNum': num_of_plants, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedPlants').show();
+							$('#plant_num').attr('value', num_of_plants);
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function getInitialDetails()
+			{
+				$.ajax({
+					url: "{% url 'users:getInitialSettingsDetails' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#address').attr('value', data.address);
+							$('#pincode').attr('value', data.pincode);
+							$('#vehicle_num').attr('value', data.vehicles);
+							$('#plant_num').attr('value', data.plants);
+							$('#member_num').attr('value', data.members);
+							$('#mt_level').attr('value', data.mainTank_capacity);
+							$('#dwt_level').attr('value', data.drinkingWater_capacity);
+							$('#cwt_level').attr('value', data.carWater_capacity);
+							$('#bwt_level').attr('value', data.bathingWater_capacity);
+							$('#pwt_level').attr('value', data.plantWater_capacity);
+							document.getElementById('city_dropdown').selectedIndex = data.city;
+							if(data.actuator_control == 1)
+								document.getElementById('manual').checked = true;
+							else
+								document.getElementById('automatic').checked = true;
+							$('#actuator_link').attr('value', data.actuator_link);
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_reservoir_settings()
+			{
+				var mt_level = $('#mt_level').val();
+				var dwt_level = $('#dwt_level').val();
+				var cwt_level = $('#cwt_level').val();
+				var bwt_level = $('#bwt_level').val();
+				var pwt_level = $('#pwt_level').val();
+				$.ajax({
+					url: "{% url 'users:updateReservoirSettings' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'mainTank': mt_level, 'drinkingWater': dwt_level, 'carWater': cwt_level, 'bathingWater': bwt_level, 'plantWater': pwt_level, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#mt_level').attr('value', mt_level);
+							$('#dwt_level').attr('value', dwt_level);
+							$('#cwt_level').attr('value', cwt_level);
+							$('#bwt_level').attr('value', bwt_level);
+							$('#pwt_level').attr('value', pwt_level);
+							$('#successfullyUpdatedReservoirDetails').show();
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_actuator_control_settings(value)
+			{
+				$.ajax({
+					url: "{% url 'users:updateActuatorControlSettings' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'value': value, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedActatorControlSettings').show();
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			function update_actuator_link()
+			{
+				var link = $('#actuator_link').val();
+				$.ajax({
+					url: "{% url 'users:updateActuatorLinkSettings' %}",
+					type: "POST",
+					dataType: 'json',
+					data: { 'link': link, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+					success: data => {
+						if(data.success){
+							$('#successfullyUpdatedActuatorLinkSettings').show();
+						}
+					},
+					error: data => {
+					}
+				});
+			}
+
+			$(function () {
+				getInitialDetails();
+			});
+
+			$('.blocks').click(function () {
+				$('.blocks').removeClass('highlighted');
+				$(this).addClass('highlighted');
+			});
+
+			$('#actuator_link').keyup(function () {
+				$('#successfullyUpdatedActuatorLinkSettings').hide();
+			});
+		</script>
+	{% endblock %}

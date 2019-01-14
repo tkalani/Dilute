@@ -1,0 +1,360 @@
+{% extends 'users/main.html' %} {% block head %}{% load staticfiles %}
+<link href="{% static '/users/css/jquery.circliful.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static '/users/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="{% static '/users/css/overview.css' %}" rel="stylesheet" type="text/css" />
+
+<script src="http://code.jquery.com/jquery-1.4.min.js"></script>
+<script src="{% static '/users/js/jquery.circliful.js' %}"></script>
+<script src="{% static '/users/js/Rx.min.js' %}"></script>
+<script type="text/javascript">
+	var mobile_no = JSON.parse('{{mobile}}');
+	let sunnypngurl = "{% static 'users/img/sunny.png' %}";
+	let rainypngurl = "{% static 'users/img/rain.png' %}";
+</script>
+<!-- <script src="{% static 'users/js/overview.js' %}"></script> --> {% endblock %} {% block body %} {% block main %} {% block mydashboard %}
+
+<header class="w3-container" style="padding-top:22px">
+	<h5>
+		<b>
+			<i class="fa fa-dashboard"></i> My Dashboard</b>
+	</h5>
+</header>
+{% endblock %}
+<div class="w3-row-padding">
+	<div class="w3-col s9" style="height: 88vh;">
+
+		<div class="w3-row-padding w3-margin-bottom" style="margin-top:10px;">
+
+				<div class="w3-col s4">
+						<div class="w3-container w3-padding-16 w3-blue" align="center" style="height: 150px; min-width: 150px;">
+							<i class="fa fa-clock-o fa-3x" aria-hidden="true"></i>
+							<div style="margin-top: 10px"></div>
+							<div id="date"></div>
+							<div id="time"></div>
+
+						</div>
+					</div>
+
+
+			<div class="w3-col s4">
+				<div class="w3-container w3-green w3-padding-16" style="height: 150px; min-width: 150px;">
+					<!-- <div class="w3-left" style="margin-top: 3px;">
+						<i class="fa fa-check-square-o w3-xxxlarge"></i>
+					</div> -->
+					<div style="flex: 1; display: inline-block;">
+						<table>
+								<tr>
+									<td width="80%">pH</td>
+									<td id="current_pH" width="80%" style="padding-left: 10%"></td>
+								</tr>
+								<tr>
+										<td>TURBIDITY</td>
+										<td id="current_turbidity" width="80%"  style="padding-left: 10%"></td>
+									</tr>
+								<tr>
+										<td>TEMPERATURE</td>
+										<td id="current_temperature" width="80%" style="padding-left: 10%"></td>
+									</tr>
+									<tr>
+											<td>HUMIDITY</td>
+											<td id="current_humidity" width="80%" style="padding-left: 10%"></td>
+										</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="w3-col s4">
+				<div class="weather w3-container w3-padding-16" align="center" style="height: 240px; min-width: 240px;"></div>
+			</div>
+		</div>
+
+		<div style="margin-top: 30px;">
+			<!-- <i class="fa fa-thermometer-empty" aria-hidden="true"></i> -->
+			<h4 style="text-align: center;">Latest Sensor Readings</h4>
+
+			<div style="text-align: center;" id="current_type_of_water">
+			</div>
+			<div style="margin-top: 20px;"></div>
+
+			<div>
+				<div id="drinkingCircliful"></div>
+			</div>
+			<div style="padding-left:25%;">
+				<div id="plantCircliful"></div>
+			</div>
+			<div style="padding-left:50%;">
+				<div id="bathingCircliful"></div>
+			</div>
+			<div style="padding-left:75%;">
+				<div id="carCircliful"></div>
+			</div>
+		</div>
+	</div>
+	<div class="w3-col s3 w3-border-left w3-border-black" style="height: 100vh; text-align: center; font-weight: bold;">
+
+
+		<h4 style="">Actuator Status and Control (Raspberry PI)</h4>
+
+		<div id="block1" style="opacity: 1; position: absolute; width: 24%;">
+			<div id="actuatorstatus">
+				<img src="{% static 'users/img/runningtap.svg' %}" style="margin-top: 10px; height: 100px;">
+			</div>
+			<div style="margin-top: 50px;">
+
+				<div id="block2" style="opacity: 1; position: absolute;">
+					<p style="font-size: 14px;">Use the below button to control the actuator manually.</p>
+					<table style="width: 100%">
+						<tr>
+							<td style="text-align: left">Quantum Tank -> Drinking Water</td>
+							<td>
+								<label class="switch">
+									<input id="12" name="actuatorcontrol" type="checkbox" onclick="actuator_control(20, this.checked)">
+									<span class="slider"></span>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: left">Quantum Tank -> Car Wash Water</td>
+							<td>
+								<label class="switch">
+									<input id="16" name="actuatorcontrol" type="checkbox" onclick="actuator_control(12, this.checked)">
+									<span class="slider"></span>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: left">Quantum Tank -> Bathing Water</td>
+							<td>
+								<label class="switch">
+									<input id="20" name="actuatorcontrol" type="checkbox" onclick="actuator_control(26, this.checked)">
+									<span class="slider"></span>
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td style="text-align: left">Quantum Tank -> Plant Water</td>
+							<td>
+								<label class="switch">
+									<input id="26" name="actuatorcontrol" type="checkbox" onclick="actuator_control(16, this.checked)">
+									<span class="slider"></span>
+								</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="err2" style="display: none; margin-top: 58px; color: red; font-size: 20px; z-index: 3; position: absolute;">
+					Actuator has been set to automatic control. Change to manual control in settings.
+				</div>
+			</div>
+		</div>
+		<div id="err1" style="display: none; margin-top: 170px; color: red; font-size: 15px; z-index: 3; position: absolute;">
+			Please update the actuator link in your plant settings to control the actuator
+		</div>
+	</div>
+
+</div>
+{% endblock %} {% endblock %} {% block script %}<script>
+	$(document).ready(function () {
+	$('#drinkingCircliful').circliful({
+		getText: function () {
+			if (this.usesTotal())
+				return Math.round(this.getCurrentValue());
+			else
+				return this.getCurrentValue();
+		},
+		getInfoText: function () {
+			return "Drinking Water";
+		},
+		'dimension': 200,
+		'background-fill-color': '#fff',
+		'background-radius': 85,
+		'foreground-radius': 95,
+		'background-width': 15,
+		'background-stroke-color': '#808080',
+	});
+	$('#drinkingCircliful').circliful('animateToValue', 0);
+});
+$(document).ready(function () {
+	$('#plantCircliful').circliful({
+		getText: function () {
+			if (this.usesTotal())
+				return Math.round(this.getCurrentValue());
+			else
+				return this.getCurrentValue();
+		},
+		getInfoText: function () {
+			return "Plant Water";
+		},
+		'dimension': 200,
+		'background-fill-color': '#fff',
+		'background-radius': 85,
+		'foreground-radius': 95,
+		'background-width': 15,
+		'background-stroke-color': '#808080',
+	});
+	$('#plantCircliful').circliful('animateToValue', 0);
+});
+$(document).ready(function () {
+	$('#bathingCircliful').circliful({
+		getText: function () {
+			if (this.usesTotal())
+				return Math.round(this.getCurrentValue());
+			else
+				return this.getCurrentValue();
+		},
+		getInfoText: function () {
+			return "Bathing Water";
+		},
+		'dimension': 200,
+		'background-fill-color': '#fff',
+		'background-radius': 85,
+		'foreground-radius': 95,
+		'background-width': 15,
+		'background-stroke-color': '#808080',
+	});
+	$('#bathingCircliful').circliful('animateToValue', 0);
+});
+
+$(document).ready(function () {
+	$('#carCircliful').circliful({
+		getText: function () {
+			if (this.usesTotal())
+				return Math.round(this.getCurrentValue());
+			else
+				return this.getCurrentValue();
+		},
+		getInfoText: function () {
+			return "Car Wash";
+		},
+		'dimension': 200,
+		'background-fill-color': '#fff',
+		'background-radius': 85,
+		'foreground-radius': 95,
+		'background-width': 15,
+		'background-stroke-color': '#808080',
+	});
+	$('#carCircliful').circliful('animateToValue', 0);
+});
+
+console.log(mobile_no);
+var url = "/users/dataUpdate/" + mobile_no + "/";
+console.log(url);
+// console.log(url);
+let myObser = Rx.Observable.timer(0, 4000).map(() => fetch(url).then(res => res.json()))
+myObser.subscribe(x => x.then(data => {
+
+
+
+	console.log(data);
+
+	document.getElementById("time").innerHTML = data.time;
+	document.getElementById("date").innerHTML = data.date;
+
+	var drinking_lcolor, drinking_level = data.drinking_distance;
+	if (drinking_level <= 35) drinking_lcolor = '#f00';
+	else drinking_lcolor = '#0f0';
+
+	var plant_lcolor, plant_level = data.plant_distance;
+	if (plant_level <= 35) plant_lcolor = '#f00';
+	else plant_lcolor = '#0f0';
+
+	var bathing_lcolor, bathing_level = data.bathing_distance;
+	if (bathing_level <= 35) bathing_lcolor = '#f00';
+	else bathing_lcolor = '#0f0';
+
+	var car_lcolor, car_level = data.car_distance;
+	if (car_level <= 35) car_lcolor = '#f00';
+	else car_lcolor = '#0f0';
+
+
+	$('#drinkingCircliful').circliful('animateToValue', drinking_level);
+	$('#drinkingCircliful').circliful('setSetting', 'foreground-color', drinking_lcolor);
+	$('#plantCircliful').circliful('animateToValue', plant_level);
+	$('#plantCircliful').circliful('setSetting', 'foreground-color', plant_lcolor);
+	$('#bathingCircliful').circliful('animateToValue', bathing_level);
+	$('#bathingCircliful').circliful('setSetting', 'foreground-color', bathing_lcolor);
+	$('#carCircliful').circliful('animateToValue', car_level);
+	$('#carCircliful').circliful('setSetting', 'foreground-color', car_lcolor);
+
+	var temperature_data = String(data.temperature);
+	var humidity_data = String(data.humidity);
+	var pH_data = String(data.pH);
+	var turbidity_data = String(data.turbidity);
+	var type_of_water_data = "Type of Water : " + String(data.type_of_water);
+
+	document.getElementById('current_temperature').innerHTML = temperature_data;
+	document.getElementById('current_humidity').innerHTML = humidity_data;
+	document.getElementById('current_pH').innerHTML = pH_data;
+	document.getElementById('current_turbidity').innerHTML = turbidity_data;
+	document.getElementById('current_type_of_water').innerHTML = type_of_water_data;
+
+	if(data.drinkingWaterActuatorStatus == true)
+		document.getElementById(12).checked = true;
+	else
+		document.getElementById(12).checked = false;
+	if(data.carWaterActuatorStatus == true)
+		document.getElementById(16).checked = true;
+	else
+		document.getElementById(16).checked = false;
+	if(data.bathingWaterActuatorStatus == true)
+		document.getElementById(20).checked = true;
+	else
+		document.getElementById(20).checked = false;
+	if(data.plantWaterActuatorStatus == true)
+		document.getElementById(26).checked = true;
+	else
+		document.getElementById(26).checked = false;
+
+	if (data.temperature >= 20)
+		document.getElementsByClassName("weather")[0].style.backgroundImage = "url(" + sunnypngurl + ")";
+	else
+		document.getElementsByClassName("weather")[0].style.backgroundImage = "url(" + rainypngurl + ")";
+	actuator_tab(data.actuator_control, data.actuator_link);
+}
+))
+
+function actuator_control(value, checked)
+{
+	console.log(value, checked);
+	$.ajax({
+		url: "http://192.168.43.97:8000/users/controlActuator/",
+		type: "POST",
+		dataType: 'json',
+		data: { 'value': value, 'action': checked, "csrfmiddlewaretoken": '{{ csrf_token }}' },
+		success: data => {
+			console.log(data);
+			if(data.success)
+				console.log('yes');
+			else if(data.success == 0){
+				alert('Cannot connect too Actuators. Kindly check your Internt Connections');
+				document.getElementById(value).checked = !checked;
+			}
+		},
+		error: data => {
+		}
+	});
+}
+
+function actuator_tab(actuatorcontrol, actuatorlink) {
+	if (actuatorlink == -1) {
+		document.getElementById("block1").style.opacity = 0.3;
+		document.getElementById("err1").style.display = "block";
+	}
+	else {
+		document.getElementById("block1").style.opacity = 1;
+		document.getElementById("err1").style.display = "none";
+		if (actuatorcontrol == 0) {
+			document.getElementById("block2").style.opacity = 0.2;
+			document.getElementById("err2").style.display = "block";
+		}
+		else {
+			document.getElementById("block2").style.opacity = 1;
+			document.getElementById("err2").style.display = "none";
+		}
+	}
+}
+</script> {% endblock %}

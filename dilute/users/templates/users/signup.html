@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+	<title>Registration Form</title>
+  <link rel="stylesheet" href="{% static 'users/css/login_page.css' %}">
+  <style> @import url(http://fonts.googleapis.com/css?family=Roboto); </style>
+</head>
+<body>
+    <center>
+    <div class="login-page center">
+        <div class="form">
+     <img src="{% static 'users/img/logo.png' %}" alt="" height="150px" width="150px" />
+        <form name="myform1" role="form" class="form-register" method="post" action="{% url 'users:signup' %}" enctype="multipart/form-data" class="register-form">
+        	{% csrf_token %}
+            <input type="text" name="name" required="" placeholder="Name"><br><br>
+            <input type="email" name="email" required="" placeholder="Email"><br><br>
+            <input type="text" name="mob_no" required="" placeholder="Mobile Number" value=""><br><br>
+            <input type="password" name="password" required="" placeholder="Password" value=""><br><br>
+            <button type="submit" class="login loginmodal-submit">Register</button><br><br>
+            <p class="message"><a href="{% url 'users:login' %}">Log In</a></p>
+        </form>
+    </div>
+    </div>
+    </center>
+</body>
+</html>

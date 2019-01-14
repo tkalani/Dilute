@@ -1,0 +1,140 @@
+{% extends 'users/main.html' %}
+	{% block head %}
+		{% load staticfiles %}
+			<script src="http://code.jquery.com/jquery-1.4.min.js"></script>
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+			<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+			<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js" type="text/javascript"></script>
+
+            <script type="text/javascript" src="{% static 'users/js/ajaxSetup.js' %}"></script>
+			<style>
+			    .row {	display: flex;	}
+			    .col {	flex: 1;	}
+                .loader1 { display: none; }
+                .loader2 { display: none; }
+                .loader3 { display: none; }
+                .loader4 { display: none; }
+                .loader-text {
+                    color : #3498DB;
+                    font-size : 30px;
+                }
+                .div-canvas{
+                    height: 500px;
+                    width: 80%;
+                }
+                .td-left{   text-align: left;  }
+                .td-right { text-align: right;  }
+                .td-cell { width: 50%; }
+                .graph-heading { text-align: center; }
+			</style>
+	{% endblock %}
+	{% block body %}
+		{% block main %}
+			{% block mydashboard %}
+			{% endblock %}
+			<center>
+			    <div style="padding-left: 15px; width:90%;" class="w3-row-padding w3-margin-bottom">
+			        <div id="tabs" style="margin-top: 25px;">
+			            <br>
+                        
+                        <div class="graph-heading" id="group-heading">
+                            <strong>Predictions on the basis of Last 7 Days ... </strong>
+                        </div>
+                        <div id="tabs-1">
+                            <div class="container5">
+                                <div class="div-canvas" id="con1">
+                                    <canvas id="avgGraph" style="max-height: 50px, max-width: 50px !important;"></canvas>
+                                </div>
+                            </div>
+                            <div class="loader1" style="height: 500px; width: 900px;">
+                               <center>
+                                   <img class="loading-image" src="{% static 'users/img/loader1.gif' %}" alt="loading..">
+                                   <p class="loader-text"><strong>DILUTING</strong> out <strong>DATA</strong> ...</p>
+                               </center>
+                            </div>
+                        </div><!-- 
+                        <div class="container7">
+                                <div class="div-canvas" id="con7">
+                                    <canvas id="QualityGraph" style="height: 50px, width: 50px !important;"></canvas>
+                                </div>
+                            </div> -->
+                        <div id="predictionsMessage"></div>
+			        </div>
+			    </div>
+			</center>
+		{% endblock %}
+	{% endblock %} 
+
+	{% block script %}
+	<script>
+
+		$("#tabs").tabs();
+
+		function getPredictionsData()
+		{
+			$.ajax({
+				url: "{% url 'users:predictionsData' %}",
+				type: "POST",
+				dataType: 'json',
+				data: { "csrfmiddlewaretoken": '{{ csrf_token }}' },
+				success: data => {
+
+					console.log(data); 
+					var ctx1 = document.querySelector("#avgGraph").getContext('2d');
+				        var myChart1 = new Chart(ctx1, {
+		                    type: 'bar',
+		                    responsive: false,
+		                    width: 100,
+		                    height: 100,
+		                    data: {
+		                        labels: ["Drinking Water", "Plant Water", "Car Water", "Bathing Water"],
+		                        datasets: [{
+		                        	label: "in Litres",
+		                            data: data.data,
+		                            fill: true,
+		                            lineTension: 0.1,
+		                            backgroundColor: ['Red', 'Green', 'Pink', 'Blue'],
+		                            borderColor: "rgba(251, 220, 19, 1)",
+		                            borderCapStyle: 'butt',
+		                            borderDash: [],
+		                            borderDashOffset: 0.0,
+		                            borderJoinStyle: 'miter',
+		                            pointBorderColor: ['Red', 'Green', 'Pink', 'Blue'],
+		                            pointBackgroundColor: "#fff",
+		                            pointBorderWidth: 1,
+		                            pointHoverRadius: 5,
+		                            pointHoverBackgroundColor: ['Red', 'Green', 'Pink', 'Blue'],
+		                            pointHoverBorderColor: "rgba(220,220,220,1)",
+		                            pointHoverBorderWidth: 2,
+		                            pointRadius: 1,
+		                            pointHitRadius: 10,
+
+		                        }]
+		                    },
+		                    options: {
+		                        scales: {
+		                            yAxes: [{
+		                                ticks: {
+		                                    beginAtZero: true
+		                                }
+		                            }]
+		                        }
+		                    }
+		                });
+				
+					var predictionsMessage = '<table style="width: 60%"><tr><td>Drinking Water</td><td>'+data.data[0]+'</td></tr><tr><td>Plant Water</td><td>'+data.data[1]+'</td></tr><tr><td>Car Water</td><td>'+data.data[2]+'</td></tr><tr><td>Bathing Water</td><td>'+data.data[3]+'</td></tr></table>';
+					document.getElementById('predictionsMessage').innerHTML = predictionsMessage;
+
+				},
+				error: data => {
+				}
+			});
+        }
+
+        $(function () {
+       	    getPredictionsData();
+		});
+	</script>
+	{% endblock %}
